@@ -52,15 +52,15 @@ export class ProductsController {
     // return {
     //   message: `Producto con id: ${productId} y HTTP status custom: ${HttpStatus.ACCEPTED}`,
     // };
-    return this.productsService.findOne(productId);
+    return this.productsService.findOne(Number(productId)); // el id viene como string del Query pero toca pasarlo a number para ejecutarlo
   }
   @Put(':id')
-  update(@Param('id') id: number, @Body() payload: any) {
+  update(@Param('id') productId: string, @Body() payload: any) {
     // return {
     //   id,
     //   payload,
     // };
-    return this.productsService.update(id.toString(), payload);
+    return this.productsService.update(Number(productId), payload); // el id viene como string del Query pero toca pasarlo a number para ejecutarlo
   }
   @Delete(':id')
   delete(@Param('id') id: number) {
