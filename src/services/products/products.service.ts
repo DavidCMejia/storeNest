@@ -34,9 +34,8 @@ export class ProductsService {
   }
 
   update(id: number, payload: any): Product {
-    console.log('🚀 ~ ProductsService ~ id:', id);
     const product = this.findOne(id);
-    console.log('🚀 ~ ProductsService ~ product:', product);
+
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);
       this.products[index] = { ...product, ...payload };
