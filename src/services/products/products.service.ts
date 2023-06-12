@@ -8,7 +8,7 @@ export class ProductsService {
   // pero para este ejemplo se usara un arreglo en memoria
   private products: Product[] = [
     {
-      id: '1',
+      id: 1,
       name: 'First Product',
       description: 'This is the first product',
       price: 10,
@@ -20,7 +20,9 @@ export class ProductsService {
   }
 
   findOne(id: string): Product {
-    return this.products.find((item) => item.id === id);
+    return this.products.find((item) => {
+      console.log('🚀 ~ ProductsService ~ item:', item.id === +id);
+    });
   }
 
   create(payload: any): Product {
@@ -31,5 +33,15 @@ export class ProductsService {
     };
     this.products.push(newProduct);
     return newProduct;
+  }
+
+  update(id: string, payload: any): Product {
+    const product = this.findOne(id);
+    if (product) {
+      const index = this.products.findIndex((item) => item.id === +id);
+      this.products[index] = { ...product, ...payload };
+      return this.products[index];
+    }
+    return null;
   }
 }

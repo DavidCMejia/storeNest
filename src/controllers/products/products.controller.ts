@@ -10,18 +10,22 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ProductsService } from '../../services/products/products.service';
 
 @Controller('products')
 export class ProductsController {
+  constructor(private productsService: ProductsService) {}
+
   @Get()
   getProducts(
     @Query('limit') limit = 100,
     @Query('offset') offset = 0,
     @Query('brand') brand = 'No brand specified',
   ) {
-    return {
-      message: `Lista de productos, limit: ${limit} offset: ${offset}, brand: ${brand}`,
-    };
+    // return {
+    //   message: `Lista de productos, limit: ${limit} offset: ${offset}, brand: ${brand}`,
+    // };
+    return this.productsService.findAll();
   }
 
   @Get('filter')
@@ -32,10 +36,11 @@ export class ProductsController {
   }
   @Post()
   create(@Body() payload: any) {
-    return {
-      message: 'accion de crear',
-      payload,
-    };
+    // return {
+    //   message: 'accion de crear',
+    //   payload,
+    // };
+    return this.productsService.create(payload);
   }
 
   // para que la ruta anterior con choque con esta,
@@ -44,16 +49,18 @@ export class ProductsController {
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
   getOne(@Param('productId') productId: string) {
-    return {
-      message: `Producto con id: ${productId} y HTTP status custom: ${HttpStatus.ACCEPTED}`,
-    };
+    // return {
+    //   message: `Producto con id: ${productId} y HTTP status custom: ${HttpStatus.ACCEPTED}`,
+    // };
+    return this.productsService.findOne(productId);
   }
   @Put(':id')
   update(@Param('id') id: number, @Body() payload: any) {
-    return {
-      id,
-      payload,
-    };
+    // return {
+    //   id,
+    //   payload,
+    // };
+    return this.productsService.update(id.toString(), payload);
   }
   @Delete(':id')
   delete(@Param('id') id: number) {
