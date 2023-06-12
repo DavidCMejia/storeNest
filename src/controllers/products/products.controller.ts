@@ -63,10 +63,11 @@ export class ProductsController {
     return this.productsService.update(Number(productId), payload); // el id viene como string del Query pero toca pasarlo a number para ejecutarlo
   }
   @Delete(':id')
-  delete(@Param('id') id: number) {
-    return {
-      id,
-      message: 'accion de eliminar',
-    };
+  delete(@Param('id') id: string) {
+    // return {
+    //   id,
+    //   message: 'accion de eliminar',
+    // };
+    return this.productsService.remove(Number(id));
   }
 }
