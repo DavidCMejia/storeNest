@@ -53,6 +53,8 @@ export class ProductsService {
       throw new NotFoundException(`Product ${id} not found`);
     }
     this.products.splice(index, 1);
-    return true;
+    return {
+      message: `Product ${id} deleted`,
+    };
   }
 }

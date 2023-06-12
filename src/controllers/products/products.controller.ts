@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -48,14 +49,14 @@ export class ProductsController {
 
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
-  getOne(@Param('productId') productId: string) {
+  getOne(@Param('productId', ParseIntPipe) productId: number) {
     // return {
     //   message: `Producto con id: ${productId} y HTTP status custom: ${HttpStatus.ACCEPTED}`,
     // };
-    return this.productsService.findOne(Number(productId)); // el id viene como string del Query pero toca pasarlo a number para ejecutarlo
+    return this.productsService.findOne(productId); // el id viene como string del Query pero toca pasarlo a number para ejecutarlo
   }
   @Put(':id')
-  update(@Param('id') productId: string, @Body() payload: any) {
+  update(@Param('id', ParseIntPipe) productId: number, @Body() payload: any) {
     // return {
     //   id,
     //   payload,
@@ -63,11 +64,11 @@ export class ProductsController {
     return this.productsService.update(Number(productId), payload); // el id viene como string del Query pero toca pasarlo a number para ejecutarlo
   }
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id', ParseIntPipe) productId: number) {
     // return {
     //   id,
     //   message: 'accion de eliminar',
     // };
-    return this.productsService.remove(Number(id));
+    return this.productsService.remove(productId);
   }
 }
