@@ -53,7 +53,9 @@ export class ProductsController {
     // return {
     //   message: `Producto con id: ${productId} y HTTP status custom: ${HttpStatus.ACCEPTED}`,
     // };
-    return this.productsService.findOne(productId); // el id viene como string del Query pero toca pasarlo a number para ejecutarlo
+    return this.productsService.findOne(productId);
+    // el id viene como string del Query pero toca pasarlo a number para ejecutarlo
+    // se arregla con el PIPE ParseIntPipe
   }
   @Put(':id')
   update(@Param('id', ParseIntPipe) productId: number, @Body() payload: any) {
