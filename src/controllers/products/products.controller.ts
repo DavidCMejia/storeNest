@@ -37,6 +37,7 @@ export class ProductsController {
   }
   @Post()
   create(@Body() payload: CreateProductDto) {
+    console.log('🚀 ~ ProductsController ~ payload:', payload);
     // return {
     //   message: 'accion de crear',
     //   payload,
